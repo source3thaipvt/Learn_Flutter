@@ -56,17 +56,23 @@ class MyImage extends StatelessWidget {
           child: Container(
             width: 300,
             height: 300,
-            // color: Colors.blue,
-            decoration: BoxDecoration(
-              color: Colors.blue,
-              borderRadius: BorderRadius.circular(150),
-              image: DecorationImage(
-                image: NetworkImage(
-                  'https://w7.pngwing.com/pngs/595/79/png-transparent-dart-programming-language-flutter-object-oriented-programming-flutter-logo-class-fauna-bird.png',
-                ),
+            color: Colors.blue,
+            child: ClipOval(
+              child: Image.network(
+                'https://w7.pngwing.com/pngs/595/79/png-transparent-dart-programming-language-flutter-object-oriented-programming-flutter-logo-class-fauna-bird.png',
                 fit: BoxFit.cover,
               ),
             ),
+            // decoration: BoxDecoration(
+            //   color: Colors.blue,
+            //   borderRadius: BorderRadius.circular(150),
+            //   image: DecorationImage(
+            //     image: NetworkImage(
+            //       'https://w7.pngwing.com/pngs/595/79/png-transparent-dart-programming-language-flutter-object-oriented-programming-flutter-logo-class-fauna-bird.png',
+            //     ),
+            //     fit: BoxFit.cover,
+            //   ),
+            // ),
             // child: Image.asset(
             //   'lib/src/assets/images/logo3x.png',
             //   alignment: Alignment.topCenter,
