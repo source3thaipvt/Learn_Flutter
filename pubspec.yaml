@@ -36,6 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   url_launcher: ^5.4.0   
   image_picker: ^0.8.0+4
+  provider: ^6.0.2
 
 dev_dependencies:
   flutter_test:
@@ -79,7 +80,7 @@ flutter:
     - family: DancingScript
       fonts:
         - asset: lib/src/assets/fonts/DancingScript.ttf
-          style: italic
+          style: normal
           weight: 700
   #   - family: Trajan Pro
   #     fonts:
