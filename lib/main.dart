@@ -57,10 +57,8 @@ class MyImage extends StatelessWidget {
             width: 300,
             height: 300,
             color: Colors.blue,
-            child: Image.network(
-              'https://w7.pngwing.com/pngs/595/79/png-transparent-dart-programming-language-flutter-object-oriented-programming-flutter-logo-class-fauna-bird.png',
-              width: 50,
-              height: 50,
+            child: Image.asset(
+              'lib/src/assets/images/logo3x.png',
               alignment: Alignment.topCenter,
               // color: Colors.yellow,
               // colorBlendMode: BlendMode.colorBurn,
