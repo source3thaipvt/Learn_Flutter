@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hello_world/data/listData.dart';
 
 void main() {
-  runApp(MyStatelessWidgetAspectRatioCardWrap());
+  runApp(MyStatefulWidget());
 }
 
 class MyApp extends StatelessWidget {
@@ -571,5 +571,54 @@ class MyStatelessWidgetAspectRatioCardWrap extends StatelessWidget {
         ),
       ],
     );
+  }
+}
+
+class MyStatefulWidget extends StatefulWidget {
+  @override
+  _MyAppState createState() {
+    // TODO: implement createState
+    return _MyAppState();
+  }
+}
+
+class _MyAppState extends State<MyStatefulWidget> {
+  int count = 0;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    //get external data
+    _getThingsOnStartup().then((value) => print("Async finished"));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return MaterialApp(
+      home: Scaffold(
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('$count Scope'),
+              ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    count++;
+                    print(count);
+                  });
+                },
+                child: Text('On Press'),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Future _getThingsOnStartup() async {
+    await Future.delayed(Duration(seconds: 2));
   }
 }
