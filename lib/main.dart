@@ -1,8 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:hello_world/data/listData.dart';
 
 void main() {
-  runApp(MyStatelessWidgetStackAlignPostioned());
+  runApp(MyStatelessWidgetAspectRatioCardWrap());
 }
 
 class MyApp extends StatelessWidget {
@@ -390,14 +392,184 @@ class MyStatelessWidgetStackAlignPostioned extends StatelessWidget {
       ),
     );
   }
+}
 
-  Widget _align() {
-    return Align();
+class MyStatelessWidgetAspectRatioCardWrap extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return MaterialApp(
+      home: Scaffold(
+        body: SafeArea(
+          // child: _aspectRatio(),
+          // child: _card(),
+          child: _warp(),
+        ),
+      ),
+    );
   }
 
-  Widget _postioned() {
-    return Positioned(
-      child: Container(),
+  Widget _aspectRatio() {
+    return Container(
+      color: Colors.blue,
+      alignment: Alignment.center,
+      width: double.infinity,
+      height: 100,
+      child: AspectRatio(
+        aspectRatio: 1 / 2,
+        child: Container(
+          color: Colors.amber[700],
+        ),
+      ),
+    );
+  }
+
+  Widget _card() {
+    return Card(
+      // đổ bóng
+      elevation: 5,
+      margin: EdgeInsets.all(10),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          const ListTile(
+            leading: Icon(Icons.alarm),
+            title: Text("Flutter"),
+            subtitle: Text("Đây là card view listTitle"),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              SizedBox.fromSize(
+                size: Size(40, 40), // button width and height
+                child: ClipOval(
+                  child: Material(
+                    color: Colors.orange, // button color
+                    child: InkWell(
+                      splashColor: Colors.red, // splash color
+                      onTap: () {
+                        log("message");
+                      }, // button pressed
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(
+                            Icons.alarm_add,
+                            color: Colors.white,
+                          ), // icon
+                          Text(
+                            "Add",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 12,
+                            ),
+                          ), // text
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(width: 8),
+              SizedBox.fromSize(
+                size: Size(40, 40), // button width and height
+                child: ClipOval(
+                  child: Material(
+                    color: Colors.orange[300], // button color
+                    child: InkWell(
+                      splashColor: Colors.red, // splash color
+                      onTap: () {
+                        log("message");
+                      }, // button pressed
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(
+                            Icons.close,
+                            color: Colors.red,
+                          ), // icon
+                          Text(
+                            "Cancel",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 12,
+                            ),
+                          ), // text
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(width: 8),
+              TextButton(
+                onPressed: () {},
+                child: Text('BUY TICKETS'),
+              ),
+              SizedBox(width: 8),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _warp() {
+    return Wrap(
+      direction: Axis.horizontal,
+      spacing: 10, // giãn khoảng cách
+      runSpacing: 0, // giãn dòng
+      alignment: WrapAlignment.center, // căn giữa
+      children: <Widget>[
+        Chip(
+          label: Text('Title 1'),
+          avatar: CircleAvatar(
+            backgroundColor: Colors.white,
+            child: ClipOval(
+                child: Image.asset('lib/src/assets/images/logo3x.png')),
+          ),
+        ),
+        Chip(
+          label: Text('Title 1'),
+          avatar: CircleAvatar(
+            backgroundColor: Colors.white,
+            child: ClipOval(
+                child: Image.asset('lib/src/assets/images/logo3x.png')),
+          ),
+        ),
+        Chip(
+          label: Text('Title 1'),
+          avatar: CircleAvatar(
+            backgroundColor: Colors.white,
+            child: ClipOval(
+                child: Image.asset('lib/src/assets/images/logo3x.png')),
+          ),
+        ),
+        Chip(
+          label: Text('Title 1'),
+          avatar: CircleAvatar(
+            backgroundColor: Colors.white,
+            child: ClipOval(
+                child: Image.asset('lib/src/assets/images/logo3x.png')),
+          ),
+        ),
+        Chip(
+          label: Text('Title 1'),
+          avatar: CircleAvatar(
+            backgroundColor: Colors.white,
+            child: ClipOval(
+                child: Image.asset('lib/src/assets/images/logo3x.png')),
+          ),
+        ),
+        Chip(
+          label: Text('Title 1'),
+          avatar: CircleAvatar(
+            backgroundColor: Colors.white,
+            child: ClipOval(
+                child: Image.asset('lib/src/assets/images/logo3x.png')),
+          ),
+        ),
+      ],
     );
   }
 }
