@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hello_world/data/listData.dart';
 
 void main() {
-  runApp(MyListView());
+  runApp(MyGridView());
 }
 
 class MyApp extends StatelessWidget {
@@ -142,6 +142,56 @@ class MyListView extends StatelessWidget {
               },
             ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class MyGridView extends StatelessWidget {
+  final List<int> colorCodes = <int>[700, 600, 500, 400, 300, 200, 100];
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return MaterialApp(
+      home: Scaffold(
+        body: SafeArea(
+          // child: GridView.count(
+          //   crossAxisCount: 2,
+          //   scrollDirection: Axis.vertical,
+          //   padding: EdgeInsets.only(left: 5, right: 5, top: 0, bottom: 20),
+          //   // reverse: true,
+          //   mainAxisSpacing: 10,
+          //   crossAxisSpacing: 20,
+          //   childAspectRatio: 0.7,
+          //   children: [
+          //     Container(color: Colors.amber[700]),
+          //     Container(color: Colors.amber[400]),
+          //     Container(color: Colors.amber[100]),
+          //     Container(color: Colors.blue[700]),
+          //     Container(color: Colors.blue[400]),
+          //     Container(color: Colors.blue[100]),
+          //     Container(color: Colors.red[700]),
+          //     Container(color: Colors.red[400]),
+          //     Container(color: Colors.red[100]),
+          //   ],
+          // ),
+          child: GridView.builder(
+              itemCount: colorCodes.length,
+              padding: EdgeInsets.only(left: 10, right: 10, bottom: 20),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 20,
+                // childAspectRatio: 0.9,
+                mainAxisExtent: 300,
+              ),
+              itemBuilder: (context, index) {
+                var color = colorCodes[index];
+                return Container(
+                  color: Colors.amber[color],
+                );
+              }),
         ),
       ),
     );
