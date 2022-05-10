@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hello_world/data/listData.dart';
 
 void main() {
-  runApp(MyImage());
+  runApp(MyListView());
 }
 
 class MyApp extends StatelessWidget {
@@ -82,6 +83,64 @@ class MyImage extends StatelessWidget {
             //   //lap lai anh
             //   // repeat: ImageRepeat.repeat,
             // ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class MyListView extends StatelessWidget {
+  final List<int> colorCodes = <int>[700, 600, 500, 400, 300, 200, 100];
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return MaterialApp(
+      home: Scaffold(
+        body: SafeArea(
+          child: Container(
+            // color: Colors.purple[300],
+            // child: ListView.builder(
+            //   // scrollDirection: Axis.horizontal,
+            //   padding:
+            //       EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+            //   // reverse: true,
+            //   // physics: NeverScrollableScrollPhysics(),
+            //   shrinkWrap: true,
+            //   itemCount: colorCodes.length,
+            //   itemBuilder: (BuildContext context, int index) {
+            //     return Container(
+            //       height: 100,
+            //       color: Colors.amber[colorCodes[index]],
+            //     );
+            //   },
+            // ),
+            child: ListView.separated(
+              // scrollDirection: Axis.horizontal,
+              padding:
+                  EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+              // reverse: true,
+              // physics: NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: dataFromApi.length,
+              itemBuilder: (BuildContext context, int index) {
+                return ListTile(
+                  leading: ClipOval(
+                    child: Image.asset(
+                      dataFromApi[index]['url']!,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  title: Text(dataFromApi[index]['text']!),
+                  selectedColor: Colors.amber,
+                  subtitle: Text(dataFromApi[index]['subtitle']!),
+                );
+              },
+              separatorBuilder: (BuildContext context, int index) {
+                return Divider();
+              },
+            ),
           ),
         ),
       ),
