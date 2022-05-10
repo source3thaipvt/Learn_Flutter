@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hello_world/data/listData.dart';
 
 void main() {
-  runApp(MyStatelessWidget());
+  runApp(MyStatelessWidgetStackAlignPostioned());
 }
 
 class MyApp extends StatelessWidget {
@@ -198,7 +198,7 @@ class MyGridView extends StatelessWidget {
   }
 }
 
-class MyStatelessWidget extends StatelessWidget {
+class MyStatelessWidgetRowColumn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -302,6 +302,102 @@ class MyStatelessWidget extends StatelessWidget {
           color: Colors.deepOrange,
         ),
       ),
+    );
+  }
+}
+
+class MyStatelessWidgetStackAlignPostioned extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return MaterialApp(
+      home: Scaffold(
+        body: SafeArea(
+          child: Center(
+            child: _stack(),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _stack() {
+    return Container(
+      width: 300,
+      height: 300,
+      color: Colors.grey[300],
+      child: Stack(
+        // alignment: AlignmentDirectional.center,
+        // alignment: Alignment(-2, 2),
+        // children: <Widget>[
+        //   Container(
+        //     height: 200,
+        //     width: 200,
+        //     color: Colors.red,
+        //   ),
+        //   Container(
+        //     height: 180,
+        //     width: 180,
+        //     color: Colors.green,
+        //   ),
+        //   Container(
+        //     height: 160,
+        //     width: 160,
+        //     color: Colors.blue,
+        //   ),
+        //   Container(
+        //     height: 140,
+        //     width: 140,
+        //     color: Colors.amber[700],
+        //   ),
+        // ],
+
+        children: <Widget>[
+          Align(
+            alignment: Alignment.topLeft,
+            child: Container(
+              height: 200,
+              width: 200,
+              color: Colors.red,
+            ),
+          ),
+          Align(
+            alignment: Alignment.topRight,
+            child: Container(
+              height: 180,
+              width: 180,
+              color: Colors.green,
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomLeft,
+            child: Container(
+              height: 160,
+              width: 160,
+              color: Colors.blue,
+            ),
+          ),
+          Positioned(
+            right: -90,
+            top: -90,
+            child: Container(
+              height: 140,
+              width: 140,
+              color: Colors.amber[700],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _align() {
+    return Align();
+  }
+
+  Widget _postioned() {
+    return Positioned(
+      child: Container(),
     );
   }
 }
