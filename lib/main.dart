@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hello_world/data/listData.dart';
 
 void main() {
-  runApp(MyGridView());
+  runApp(MyStatelessWidget());
 }
 
 class MyApp extends StatelessWidget {
@@ -192,6 +192,114 @@ class MyGridView extends StatelessWidget {
                   color: Colors.amber[color],
                 );
               }),
+        ),
+      ),
+    );
+  }
+}
+
+class MyStatelessWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return MaterialApp(
+      home: Scaffold(
+        body: SafeArea(
+          child: Center(
+            // child: Container(
+            //   padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
+            //   width: 300,
+            //   height: 300,
+            //   decoration: BoxDecoration(
+            //     color: Colors.blue,
+            //     border: Border.all(width: 3, color: Colors.amber),
+            //   ),
+            //   child: Text(
+            //     'Padding',
+            //     textAlign: TextAlign.center,
+            //   ),
+            // ),
+            child: Container(
+              color: Colors.grey[300],
+              height: 100,
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                // crossAxisAlignment: CrossAxisAlignment.start,
+                // mainAxisSize: MainAxisSize.min,
+                // children: [
+                //   Flexible(
+                //     fit: FlexFit.tight,
+                //     child: _blueBox(),
+                //     flex: 3,
+                //   ),
+                //   SizedBox(
+                //     width: 10,
+                //   ),
+                //   Flexible(
+                //     fit: FlexFit.tight,
+                //     child: _blueBox(),
+                //     flex: 2,
+                //   ),
+                //   SizedBox(
+                //     height: 70,
+                //     width: 70,
+                //     child: _blueBox(),
+                //   ),
+                //   Flexible(
+                //     child: _blueBox(),
+                //     flex: 1,
+                //   ),
+                //   Flexible(
+                //     child: _blueBox(),
+                //     flex: 1,
+                //   ),
+                // ],
+
+                children: [
+                  _blueBox(),
+                  Spacer(
+                    flex: 1,
+                  ),
+                  _blueBox(),
+                  Spacer(
+                    flex: 6,
+                  ),
+                  _blueBox(),
+                ],
+              ),
+              // child: Column(
+              //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+              //   crossAxisAlignment: CrossAxisAlignment.start,
+              //   // mainAxisSize: MainAxisSize.min,
+              //   children: [
+              //     _blueBox(),
+              //     _blueBox(),
+              //     SizedBox(
+              //       height: 70,
+              //       width: 70,
+              //       child: _blueBox(),
+              //     ),
+              //     _blueBox(),
+              //     _blueBox(),
+              //   ],
+              // ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _blueBox() {
+    return Container(
+      width: 50,
+      height: 50,
+      // color: Colors.blue,
+      decoration: BoxDecoration(
+        color: Colors.blue,
+        border: Border.all(
+          color: Colors.deepOrange,
         ),
       ),
     );
