@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hello_world/data/listData.dart';
 
 void main() {
-  runApp(MyStatefulWidget());
+  runApp(MyBottomNavigationBar());
 }
 
 class MyApp extends StatelessWidget {
@@ -620,5 +620,95 @@ class _MyAppState extends State<MyStatefulWidget> {
 
   Future _getThingsOnStartup() async {
     await Future.delayed(Duration(seconds: 2));
+  }
+}
+
+class MyBottomNavigationBar extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return MaterialApp(
+      home: CustomeBottomNavigationBar(),
+    );
+  }
+}
+
+class CustomeBottomNavigationBar extends StatefulWidget {
+  CustomeBottomNavigationBar({Key? key}) : super(key: key);
+
+  @override
+  State<CustomeBottomNavigationBar> createState() =>
+      _CustomeBottomNavigationBarState();
+}
+
+class _CustomeBottomNavigationBarState
+    extends State<CustomeBottomNavigationBar> {
+  int _typeMenuIndex = 0;
+  void _onItemTappedBottom(int index) {
+    setState(() {
+      _typeMenuIndex = index;
+    });
+  }
+
+  List<Widget> _page = [
+    TextField(),
+    Text('Business Page'),
+    Text('School Page'),
+    Text('Settings Page'),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        // child: _page[_typeMenuIndex],
+        child: IndexedStack(
+          alignment: AlignmentDirectional.center,
+          index: _typeMenuIndex,
+          children: [
+            TextField(),
+            Text('Business Page'),
+            Text('School Page'),
+            Text('Settings Page'),
+          ],
+        ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        // type: BottomNavigationBarType.fixed,
+        // selectedItemColor: Colors.amber,
+        currentIndex: _typeMenuIndex,
+        onTap: _onItemTappedBottom,
+        // backgroundColor: Colors.blueGrey,
+        iconSize: 20,
+        selectedFontSize: 12,
+        // mouseCursor: SystemMouseCursors.grab,
+        // showSelectedLabels: false,
+        // showUnselectedLabels: true,
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.home,
+              ),
+              label: "Home",
+              backgroundColor: Colors.red[600]),
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.business,
+              ),
+              label: "Business",
+              backgroundColor: Colors.blue[500]),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.school),
+              label: "School",
+              backgroundColor: Colors.yellow[800]),
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.settings,
+              ),
+              label: "Settings",
+              backgroundColor: Colors.grey[500]),
+        ],
+      ),
+    );
   }
 }
