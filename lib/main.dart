@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:hello_world/data/listData.dart';
 
 void main() {
-  runApp(MyPageNavigationTransition());
+  runApp(MyWidgetAppbarSliverAppbar());
 }
 
 class MyApp extends StatelessWidget {
@@ -849,6 +849,210 @@ class FourthPage extends StatelessWidget {
             Navigator.of(context).pop();
           },
           child: Text('Fourth Page'),
+        ),
+      ),
+    );
+  }
+}
+
+class MyWidgetAppbarSliverAppbar extends StatelessWidget {
+  const MyWidgetAppbarSliverAppbar({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      // home: AppBarPageFirst(),
+      home: MyWidgetAppbarSliverAppbarStatefulWidget(),
+    );
+  }
+}
+
+class AppBarPageFirst extends StatelessWidget {
+  const AppBarPageFirst({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        // leadingWidth: 100,
+        elevation: 10, // bóng mờ
+        // toolbarOpacity: 0.5, // làm mở tool bar
+        toolbarHeight: 40,
+        backgroundColor: Colors.amber[700],
+        leading: Container(
+          color: Colors.red,
+        ),
+        title: Text('First Page'),
+        centerTitle: true,
+        actions: [
+          Icon(Icons.alarm),
+          SizedBox(width: 10),
+          Icon(Icons.more),
+          SizedBox(width: 10),
+          Icon(Icons.settings),
+          SizedBox(width: 10),
+        ],
+      ),
+      body: Center(
+        child: ElevatedButton(
+          child: Text('Next Page'),
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => AppBarPageSecond(),
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class AppBarPageSecond extends StatelessWidget {
+  const AppBarPageSecond({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false, // hide icon arrow back pop
+      ),
+      body: Center(
+        child: Text("Second Page"),
+      ),
+    );
+  }
+}
+
+class MyWidgetAppbarSliverAppbarStatefulWidget extends StatefulWidget {
+  MyWidgetAppbarSliverAppbarStatefulWidget({Key? key}) : super(key: key);
+
+  @override
+  State<MyWidgetAppbarSliverAppbarStatefulWidget> createState() =>
+      _MyWidgetAppbarSliverAppbarStatefulWidgetState();
+}
+
+class _MyWidgetAppbarSliverAppbarStatefulWidgetState
+    extends State<MyWidgetAppbarSliverAppbarStatefulWidget> {
+  bool _pinned = true;
+  bool _snap = false;
+  bool _floating = false;
+  bool _stretch = false;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: CustomScrollView(
+        slivers: <Widget>[
+          SliverAppBar(
+            pinned: _pinned,
+            snap: _snap,
+            floating: _floating,
+            stretch: _stretch,
+            expandedHeight: 120.0,
+            flexibleSpace: const FlexibleSpaceBar(
+              title: Text('SliverAppBar'),
+              background: FlutterLogo(),
+              stretchModes: <StretchMode>[
+                StretchMode.zoomBackground,
+                StretchMode.blurBackground,
+                StretchMode.fadeTitle
+              ],
+            ),
+          ),
+          // const SliverToBoxAdapter(
+          //   child: SizedBox(
+          //     height: 20,
+          //     child: Center(
+          //       child: Text('Scroll to see the SliverAppBar in effect.'),
+          //     ),
+          //   ),
+          // ),
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (BuildContext context, int index) {
+                return Container(
+                  color: index.isOdd ? Colors.white : Colors.black12,
+                  height: 100.0,
+                  child: Center(
+                    child: Text('${index + 1}', textScaleFactor: 5),
+                  ),
+                );
+              },
+              childCount: 20,
+            ),
+          ),
+        ],
+      ),
+      bottomNavigationBar: BottomAppBar(
+        child: Padding(
+          padding: const EdgeInsets.all(3),
+          child: OverflowBar(
+            overflowAlignment: OverflowBarAlignment.center,
+            children: <Widget>[
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  const Text('pinned'),
+                  Switch(
+                    onChanged: (bool val) {
+                      setState(() {
+                        _pinned = val;
+                      });
+                    },
+                    value: _pinned,
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  const Text('snap'),
+                  Switch(
+                    onChanged: (bool val) {
+                      setState(() {
+                        _snap = val;
+                        // Snapping only applies when the app bar is floating.
+                        _floating = _floating || _snap;
+                      });
+                    },
+                    value: _snap,
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  const Text('floating'),
+                  Switch(
+                    onChanged: (bool val) {
+                      setState(() {
+                        _floating = val;
+                        _snap = _snap && _floating;
+                      });
+                    },
+                    value: _floating,
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  const Text('strech'),
+                  Switch(
+                    onChanged: (bool val) {
+                      setState(() {
+                        _stretch = val;
+                      });
+                    },
+                    value: _stretch,
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
