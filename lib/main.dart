@@ -720,38 +720,58 @@ class MyPageNavigationTransition extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      // onGenerateRoute: (settings) {
+      //   final args = settings.arguments;
+      //   if (settings.name == '/second') {
+      //     return PageRouteBuilder(
+      //       pageBuilder: (_, __, ___) => SecondPage(args),
+      //       transitionsBuilder: (_, a, __, c) => FadeTransition(
+      //         opacity: a,
+      //         child: c,
+      //       ),
+      //     );
+      //   }
+      // },
+      routes: {
+        '/first': (context) => FirstPage(),
+        '/second': (context) => SecondPage(),
+      },
       home: FirstPage(),
     );
   }
 }
 
 class FirstPage extends StatelessWidget {
-  const FirstPage({Key? key}) : super(key: key);
-
+  const FirstPage({Key? key, this.titles, this.count}) : super(key: key);
+  final titles, count;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('First Page'),
       ),
+      backgroundColor: Colors.amber[700],
       body: Center(
         child: ElevatedButton(
           onPressed: () {
-            Navigator.of(context).push(
-              // MaterialPageRoute(
-              //   builder: (context) {
-              //     return SecondPage();
-              //   },
-              // ),
-              PageRouteBuilder(
-                pageBuilder: (c, a1, a2) => SecondPage(),
-                transitionsBuilder: (c, a1, a2, child) => FadeTransition(
-                  opacity: a1,
-                  child: child,
-                ),
-                transitionDuration: Duration(seconds: 1),
-              ),
-            );
+            // Navigator.of(context).push(
+            //   // MaterialPageRoute(
+            //   //   builder: (context) {
+            //   //     return SecondPage();
+            //   //   },
+            //   // ),
+            //   PageRouteBuilder(
+            //     pageBuilder: (c, a1, a2) => SecondPage(),
+            //     // Animation fadeTransition
+            //     transitionsBuilder: (c, a1, a2, child) => FadeTransition(
+            //       opacity: a1,
+            //       child: child,
+            //     ),
+            //     // transitionDuration: Duration(seconds: 1),
+            //   ),
+            // );
+            Navigator.of(context)
+                .pushNamed('/second', arguments: 'This is sec arg');
           },
           child: Text('First Page'),
         ),
@@ -761,13 +781,14 @@ class FirstPage extends StatelessWidget {
 }
 
 class SecondPage extends StatelessWidget {
-  const SecondPage({Key? key}) : super(key: key);
-
+  final title;
+  SecondPage({this.title = "Null Pages"});
   @override
   Widget build(BuildContext context) {
+    final arg = ModalRoute.of(context)!.settings.arguments;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Second Page'),
+        title: Text(arg as String),
       ),
       body: Center(
         child: ElevatedButton(
