@@ -1,10 +1,11 @@
 import 'dart:developer';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hello_world/data/listData.dart';
 
 void main() {
-  runApp(MyBottomNavigationBar());
+  runApp(MyPageNavigationTransition());
 }
 
 class MyApp extends StatelessWidget {
@@ -708,6 +709,74 @@ class _CustomeBottomNavigationBarState
               label: "Settings",
               backgroundColor: Colors.grey[500]),
         ],
+      ),
+    );
+  }
+}
+
+class MyPageNavigationTransition extends StatelessWidget {
+  const MyPageNavigationTransition({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: FirstPage(),
+    );
+  }
+}
+
+class FirstPage extends StatelessWidget {
+  const FirstPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('First Page'),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.of(context).push(
+              // MaterialPageRoute(
+              //   builder: (context) {
+              //     return SecondPage();
+              //   },
+              // ),
+              PageRouteBuilder(
+                pageBuilder: (c, a1, a2) => SecondPage(),
+                transitionsBuilder: (c, a1, a2, child) => FadeTransition(
+                  opacity: a1,
+                  child: child,
+                ),
+                transitionDuration: Duration(seconds: 1),
+              ),
+            );
+          },
+          child: Text('First Page'),
+        ),
+      ),
+    );
+  }
+}
+
+class SecondPage extends StatelessWidget {
+  const SecondPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Second Page'),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            // Navigator.pop(context);
+            Navigator.of(context).pop();
+          },
+          child: Text('Second Page'),
+        ),
       ),
     );
   }
