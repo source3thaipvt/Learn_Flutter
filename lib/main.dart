@@ -732,9 +732,12 @@ class MyPageNavigationTransition extends StatelessWidget {
       //     );
       //   }
       // },
+      initialRoute: '/first',
       routes: {
         '/first': (context) => FirstPage(),
         '/second': (context) => SecondPage(),
+        '/third': (context) => ThirdPage(),
+        '/fourth': (context) => FourthPage(),
       },
       home: FirstPage(),
     );
@@ -793,10 +796,59 @@ class SecondPage extends StatelessWidget {
       body: Center(
         child: ElevatedButton(
           onPressed: () {
+            Navigator.of(context).pushNamed('/third');
+            // Navigator.of(context).pushReplacementNamed('/third'); // thuc hiện push đến màn third, khi pop ở màn third sẽ thực hiện pop của màn second
+          },
+          child: Text('Second Page'),
+        ),
+      ),
+    );
+  }
+}
+
+class ThirdPage extends StatelessWidget {
+  const ThirdPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    // final arg = ModalRoute.of(context)!.settings.arguments;
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("null"),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            // Navigator.pop(context);
+            Navigator.of(context).pushNamedAndRemoveUntil(
+                // chưa hiểu pushNamedAndRemoveUntil
+                '/fourth',
+                ModalRoute.withName('/first'));
+          },
+          child: Text('Third Page'),
+        ),
+      ),
+    );
+  }
+}
+
+class FourthPage extends StatelessWidget {
+  const FourthPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    // final arg = ModalRoute.of(context)!.settings.arguments;
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Fourth Page"),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
             // Navigator.pop(context);
             Navigator.of(context).pop();
           },
-          child: Text('Second Page'),
+          child: Text('Fourth Page'),
         ),
       ),
     );
