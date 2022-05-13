@@ -8,6 +8,7 @@ void main() {
   runApp(MyWidgetTabbarStatefulWidget());
 }
 
+// giới thiệu về Widget Container, Text
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -51,6 +52,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
+// giới thiệu về Image network & no network
 class MyImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -93,6 +95,7 @@ class MyImage extends StatelessWidget {
   }
 }
 
+// giới thiệu về Listview
 class MyListView extends StatelessWidget {
   final List<int> colorCodes = <int>[700, 600, 500, 400, 300, 200, 100];
 
@@ -151,6 +154,7 @@ class MyListView extends StatelessWidget {
   }
 }
 
+// giới thiệu về GirdView
 class MyGridView extends StatelessWidget {
   final List<int> colorCodes = <int>[700, 600, 500, 400, 300, 200, 100];
   @override
@@ -201,6 +205,7 @@ class MyGridView extends StatelessWidget {
   }
 }
 
+// Giới thiệu về Widget Layout || Row || Column || Expanded || Flexible
 class MyStatelessWidgetRowColumn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -309,6 +314,7 @@ class MyStatelessWidgetRowColumn extends StatelessWidget {
   }
 }
 
+// giới thiệu về Widget Stack  || Align  ||  Positioned  < Styles >
 class MyStatelessWidgetStackAlignPostioned extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -395,6 +401,7 @@ class MyStatelessWidgetStackAlignPostioned extends StatelessWidget {
   }
 }
 
+// giới thiệu về Widget AspectRatio  ||  Card  || Warp
 class MyStatelessWidgetAspectRatioCardWrap extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -575,6 +582,7 @@ class MyStatelessWidgetAspectRatioCardWrap extends StatelessWidget {
   }
 }
 
+// giới thiệu về Stateful là gì: setState value sẽ cập nhập state Widget
 class MyStatefulWidget extends StatefulWidget {
   @override
   _MyAppState createState() {
@@ -624,6 +632,7 @@ class _MyAppState extends State<MyStatefulWidget> {
   }
 }
 
+// giới thiệu về BottomNavigationBar điều hướng page
 class MyBottomNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -714,6 +723,10 @@ class _CustomeBottomNavigationBarState
   }
 }
 
+// giới thiệu về NavigationTransition <push|pop}> điều hướng page có hiệu ứng
+// giới thiệu về Pass Arguments cách truyền data < object >
+// giới thiệu về Router <pushNamed||pushReplacementNamed||pushNamedAndRemoveUntil>
+// đẩy đến màn || 1 -> 2 Replacement -> 3 (pop sẽ về màn 1) || 1 -> 2 -> 3 RemoveUntil -> 4 (pop sẽ về màn 1 logout)
 class MyPageNavigationTransition extends StatelessWidget {
   const MyPageNavigationTransition({Key? key}) : super(key: key);
 
@@ -855,6 +868,7 @@ class FourthPage extends StatelessWidget {
   }
 }
 
+// giới thiệu về Widget Appbar tĩnh
 class MyWidgetAppbarSliverAppbar extends StatelessWidget {
   const MyWidgetAppbarSliverAppbar({Key? key}) : super(key: key);
 
@@ -927,6 +941,7 @@ class AppBarPageSecond extends StatelessWidget {
   }
 }
 
+// giới thiệu về Widget Appbar động, có hiệu ứng
 class MyWidgetAppbarSliverAppbarStatefulWidget extends StatefulWidget {
   MyWidgetAppbarSliverAppbarStatefulWidget({Key? key}) : super(key: key);
 
@@ -1059,6 +1074,7 @@ class _MyWidgetAppbarSliverAppbarStatefulWidgetState
   }
 }
 
+// giới thiệu về Widget Tabbar tĩnh Stateless
 class MyWidgetTabbar extends StatelessWidget {
   const MyWidgetTabbar({Key? key}) : super(key: key);
 
@@ -1128,6 +1144,7 @@ class MyWidgetTabbar extends StatelessWidget {
   }
 }
 
+// giới thiệu về Widget Tabbar động Stateful lắng nghe sự kiện từ Tabbar
 class MyWidgetTabbarStatefulWidget extends StatefulWidget {
   MyWidgetTabbarStatefulWidget({Key? key}) : super(key: key);
 
