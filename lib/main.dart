@@ -7,7 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:hello_world/data/listData.dart';
 
 void main() {
-  runApp(MyButton());
+  runApp(MyFloatingActionButton());
 }
 
 // giới thiệu về Widget Container, Text
@@ -1409,6 +1409,63 @@ class MyButton extends StatelessWidget {
           ),
         ),
       )),
+    );
+  }
+}
+
+// giới thiệu về Widget FloatingActionButton <styles>
+class MyFloatingActionButton extends StatelessWidget {
+  const MyFloatingActionButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('MyFloatingActionButton'),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: Container(
+          margin: EdgeInsets.only(bottom: 50),
+          child: FloatingActionButton(
+            onPressed: () {},
+            child: Icon(Icons.add),
+            backgroundColor: Colors.green,
+            foregroundColor: Colors.amber,
+            mini: true, // widht height nho nhat
+            elevation: 4,
+            // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(9)),
+          ),
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          items: const [
+            BottomNavigationBarItem(
+              label: 'person',
+              icon: Icon(Icons.person),
+            ),
+            BottomNavigationBarItem(
+              label: 'home',
+              icon: Icon(Icons.home),
+            ),
+            BottomNavigationBarItem(
+              label: 'settings',
+              icon: Icon(Icons.settings),
+            ),
+          ],
+        ),
+        // floatingActionButton: FloatingActionButton.extended(
+        //   onPressed: () {},
+        //   icon: Icon(Icons.favorite, color: Colors.pink[200]),
+        //   label: Text('Favoriate'),
+        // ),
+        body: SafeArea(
+          child: Container(
+            child: Center(
+              child: Text('hello'),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
