@@ -7,7 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:hello_world/data/listData.dart';
 
 void main() {
-  runApp(MyFloatingActionButton());
+  runApp(MyTextField());
 }
 
 // giới thiệu về Widget Container, Text
@@ -1465,6 +1465,128 @@ class MyFloatingActionButton extends StatelessWidget {
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+// giới thiệu về Widget Text Field <Styles>
+class MyTextField extends StatelessWidget {
+  const MyTextField({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: MyTextFieldStateful(),
+    );
+  }
+}
+
+class MyTextFieldStateful extends StatefulWidget {
+  MyTextFieldStateful({Key? key}) : super(key: key);
+
+  @override
+  State<MyTextFieldStateful> createState() => _MyTextFieldStatefulState();
+}
+
+class _MyTextFieldStatefulState extends State<MyTextFieldStateful> {
+  late final TextEditingController _textEditingController;
+  late final TextEditingController _text2EditingController;
+  var str = '';
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _textEditingController = TextEditingController(text: '');
+    _text2EditingController = TextEditingController(text: '');
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _textEditingController.dispose();
+    _text2EditingController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('MyTextField')),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => MySecondPageTextField(
+                  _textEditingController.text,
+                  _text2EditingController.text,
+                  str),
+            ),
+          );
+        },
+      ),
+      body: SafeArea(
+        child: Container(
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(15),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextField(
+                    obscureText: false,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Username',
+                    ),
+                    controller: _textEditingController,
+                    style: TextStyle(fontSize: 14),
+                  ),
+                  SizedBox(height: 10),
+                  TextField(
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Password',
+                    ),
+                    controller: _text2EditingController,
+                    style: TextStyle(fontSize: 14),
+                  ),
+                  SizedBox(height: 10),
+                  TextField(
+                    obscureText: false,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'String',
+                    ),
+                    onChanged: (value) => {
+                      str = value,
+                    },
+                    style: TextStyle(fontSize: 14),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class MySecondPageTextField extends StatelessWidget {
+  late final String userName, passWord, str;
+  MySecondPageTextField(this.userName, this.passWord, this.str);
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Hello $userName'),
+        ),
+        body: Center(
+            child:
+                Text('Username: $userName \n\nPassword: $passWord \n\n$str')),
       ),
     );
   }
