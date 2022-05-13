@@ -7,7 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:hello_world/data/listData.dart';
 
 void main() {
-  runApp(MyDrawerWidget());
+  runApp(MyButton());
 }
 
 // giới thiệu về Widget Container, Text
@@ -1301,6 +1301,114 @@ class DrawHomePage extends StatelessWidget {
           );
         }),
       ),
+    );
+  }
+}
+
+// giới thiệu về Widget ElevatedButton || TextButton || OutlinedButton < styles >
+
+class MyButton extends StatelessWidget {
+  const MyButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+          body: SafeArea(
+        child: Container(
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton.icon(
+                  onPressed: () {},
+                  icon: Icon(Icons.cancel),
+                  label: Text("Icon Cancel"),
+                ),
+                ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.red[200],
+                      onPrimary: Colors.yellow,
+                      // onSurface: Colors.red,
+                      minimumSize: Size(150, 100),
+                      textStyle: TextStyle(
+                        fontSize: 14,
+                        fontFamily: 'DancingScript',
+                      ),
+                      // shape: RoundedRectangleBorder(
+                      //   borderRadius: BorderRadius.circular(15),
+                      //   side: BorderSide(color: Colors.red),
+                      // ),
+                      shape: CircleBorder(
+                        side: BorderSide(color: Colors.red),
+                      ),
+                    ),
+                    onPressed: () {},
+                    // onPressed: null,
+                    child: Text("Elevated Button")
+                    // Container(
+                    //   width: 150,
+                    //   height: 50,
+                    //   child: ElevatedButton(
+                    //       style: ElevatedButton.styleFrom(
+                    //         primary: Colors.red[200],
+                    //         onPrimary: Colors.yellow,
+                    //         // onSurface: Colors.red,
+                    //         // minimumSize: Size(150, 50),
+                    //       ),
+                    //       onPressed: () {},
+                    //       // onPressed: null,
+                    //       child: Text("Elevated Button")),
+                    ),
+                SizedBox(height: 10),
+                TextButton(
+                  onPressed: () {},
+                  child: Text("Text Button"),
+                  style: TextButton.styleFrom(
+                    primary: Colors.red[200],
+                    // elevation: 5,
+                    // onSurface: Colors.red,
+                    minimumSize: Size(150, 50),
+                    textStyle: TextStyle(
+                      fontSize: 14,
+                      fontFamily: 'DancingScript',
+                    ),
+                  ),
+                ),
+                SizedBox(height: 10),
+                OutlinedButton(
+                  onPressed: () {},
+                  child: Text("Outlined Button"),
+                  style: OutlinedButton.styleFrom(
+                    primary: Colors.purple[200],
+                    // elevation: 5,
+                    // onSurface: Colors.red,
+                    minimumSize: Size(150, 50),
+                    textStyle: TextStyle(
+                      fontSize: 14,
+                      fontFamily: 'DancingScript',
+                    ),
+                    side: BorderSide(color: Colors.green, width: 2),
+                  ),
+                ),
+                SizedBox(height: 10),
+                ElevatedButton(
+                    style: ButtonStyle(
+                        minimumSize: MaterialStateProperty.all(Size(100, 100)),
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.amber),
+                        foregroundColor: MaterialStateProperty.all(Colors.blue),
+                        elevation: MaterialStateProperty.all(20),
+                        shape: MaterialStateProperty.all(CircleBorder(
+                          side: BorderSide(color: Colors.red),
+                        ))),
+                    onPressed: () {},
+                    child: Text("Elevated Button")),
+              ],
+            ),
+          ),
+        ),
+      )),
     );
   }
 }
