@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:hello_world/data/listData.dart';
 
 void main() {
-  runApp(MyWidgetAppbarSliverAppbar());
+  runApp(MyWidgetTabbarStatefulWidget());
 }
 
 class MyApp extends StatelessWidget {
@@ -1053,6 +1053,144 @@ class _MyWidgetAppbarSliverAppbarStatefulWidgetState
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class MyWidgetTabbar extends StatelessWidget {
+  const MyWidgetTabbar({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: DefaultTabController(
+        length: 9,
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text('Tab Bar Demo'),
+            bottom: TabBar(
+              isScrollable: true, // bat scroll neu qua dai "lenght >5"
+              indicatorColor: Colors.amber[700],
+              // indicatorSize: TabBarIndicatorSize.tab,
+              labelColor: Colors.red,
+              unselectedLabelColor: Colors.white,
+              indicatorWeight: 5,
+              // indicator: BoxDecoration(
+              //   borderRadius: BorderRadius.circular(30),
+              // ),
+              tabs: [
+                Tab(icon: Icon(Icons.directions_car), text: 'Car'),
+                Tab(icon: Icon(Icons.directions_transit), text: 'Transit'),
+                Tab(icon: Icon(Icons.directions_bike), text: 'Bike'),
+                Tab(icon: Icon(Icons.directions_car), text: 'Car'),
+                Tab(icon: Icon(Icons.directions_transit), text: 'Transit'),
+                Tab(icon: Icon(Icons.directions_bike), text: 'Bike'),
+                Tab(icon: Icon(Icons.directions_car), text: 'Car'),
+                Tab(icon: Icon(Icons.directions_transit), text: 'Transit'),
+                Tab(icon: Icon(Icons.directions_bike), text: 'Bike'),
+              ],
+            ),
+          ),
+          body: TabBarView(children: [
+            Center(
+              child: Text('page 1'),
+            ),
+            Center(
+              child: Text('page 2'),
+            ),
+            Center(
+              child: Text('page 2'),
+            ),
+            Center(
+              child: Text('page 1'),
+            ),
+            Center(
+              child: Text('page 2'),
+            ),
+            Center(
+              child: Text('page 2'),
+            ),
+            Center(
+              child: Text('page 1'),
+            ),
+            Center(
+              child: Text('page 2'),
+            ),
+            Center(
+              child: Text('page 2'),
+            ),
+          ]),
+        ),
+      ),
+    );
+  }
+}
+
+class MyWidgetTabbarStatefulWidget extends StatefulWidget {
+  MyWidgetTabbarStatefulWidget({Key? key}) : super(key: key);
+
+  @override
+  State<MyWidgetTabbarStatefulWidget> createState() =>
+      _MyWidgetTabbarStatefulWidgetState();
+}
+
+class _MyWidgetTabbarStatefulWidgetState
+    extends State<MyWidgetTabbarStatefulWidget>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+  int _currentIndex = 0;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _tabController = TabController(length: 3, vsync: this);
+    _tabController.addListener(() {
+      if (_tabController.indexIsChanging) {
+        setState(() {
+          _currentIndex = _tabController.index;
+          print(_currentIndex);
+        });
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Tab bar View Stateful'),
+          bottom: TabBar(
+            // isScrollable: true, // bat scroll neu qua dai "lenght >5"
+            indicatorColor: Colors.amber[700],
+            // indicatorSize: TabBarIndicatorSize.tab,
+            labelColor: Colors.red,
+            unselectedLabelColor: Colors.white,
+            indicatorWeight: 5,
+            controller: _tabController,
+            tabs: const [
+              Tab(icon: Icon(Icons.directions_bike), text: 'Bike'),
+              Tab(icon: Icon(Icons.directions_car), text: 'Car'),
+              Tab(icon: Icon(Icons.directions_transit), text: 'Transit'),
+            ],
+          ),
+        ),
+        body: TabBarView(
+          controller: _tabController,
+          children: const [
+            Center(child: Text('Bike')),
+            Center(child: Text('Car')),
+            Center(child: Text('Transit')),
+          ],
         ),
       ),
     );
