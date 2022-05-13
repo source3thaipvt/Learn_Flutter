@@ -1,11 +1,13 @@
 import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hello_world/data/listData.dart';
 
 void main() {
-  runApp(MyWidgetTabbarStatefulWidget());
+  runApp(MyDrawerWidget());
 }
 
 // giới thiệu về Widget Container, Text
@@ -1209,6 +1211,95 @@ class _MyWidgetTabbarStatefulWidgetState
             Center(child: Text('Transit')),
           ],
         ),
+      ),
+    );
+  }
+}
+
+// giới thiệu về Widget Drawer & Drawer Header
+class MyDrawerWidget extends StatelessWidget {
+  const MyDrawerWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: DrawHomePage(),
+    );
+  }
+}
+
+class DrawHomePage extends StatelessWidget {
+  const DrawHomePage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(),
+      drawer: Drawer(
+        // endDrawer: Drawer( // menu drawer end tool bar
+        child: Container(
+          color: Colors.green[100],
+          child: Column(
+            // padding: EdgeInsets.zero,
+            children: [
+              Container(
+                // width: double.infinity,
+                // child: DrawerHeader(
+                //   decoration: BoxDecoration(color: Colors.purple),
+                //   child: Container(
+                //     color: Colors.grey,
+                //     child: Text("Drawer Header"),
+                //   ),
+                // ),
+                child: UserAccountsDrawerHeader(
+                  decoration: BoxDecoration(color: Colors.amber),
+                  accountName: Text('Test'),
+                  accountEmail: Text('testemail@gmail.com'),
+                  currentAccountPicture: CircleAvatar(
+                    backgroundColor: Colors.white,
+                    backgroundImage:
+                        AssetImage('lib/src/assets/images/logo3x.png'),
+                    // NetworkImage(
+                    // "https://cdn.nguyenkimmall.com/images/detailed/555/may-anh-cho-nguoi-moi.jpg"),
+                  ),
+                ),
+              ),
+              ListTile(
+                title: Text('item 1'),
+                onTap: () {
+                  print("item 1");
+                  Navigator.of(context).pop();
+                },
+              ),
+              ListTile(
+                title: Text('item 2'),
+                onTap: () {
+                  print("item 2");
+                  Navigator.of(context).pop();
+                },
+              ),
+              ListTile(
+                title: Text('item 3'),
+                onTap: () {
+                  print("item 3");
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+      body: SafeArea(
+        // openDrawer = button ElevatedButton Scaffold.of(context).openDrawer();
+        child: Builder(builder: (context) {
+          return Center(
+            child: ElevatedButton(
+              onPressed: (() {
+                Scaffold.of(context).openDrawer();
+              }),
+              child: Text('Drawer Home'),
+            ),
+          );
+        }),
       ),
     );
   }
