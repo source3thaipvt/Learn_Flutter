@@ -8,7 +8,7 @@ import 'package:hello_world/data/listData.dart';
 import 'package:intl/intl.dart';
 
 void main() {
-  runApp(MyShowDateTimePicker());
+  runApp(MyHomeDropdownCheckboxRadioSwitchValidation());
 }
 
 // giới thiệu về Widget Container, Text
@@ -1724,6 +1724,139 @@ class _MyHomeShowDateTimePickerState extends State<MyHomeShowDateTimePicker> {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+// Giới thiệu về Widget DropDown || CheckBox || Switch || ValidationFrom
+
+class MyHomeDropdownCheckboxRadioSwitchValidation extends StatelessWidget {
+  const MyHomeDropdownCheckboxRadioSwitchValidation({Key? key})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: MyDropdownCheckboxRadioSwitchValidation(),
+    );
+  }
+}
+
+class MyDropdownCheckboxRadioSwitchValidation extends StatefulWidget {
+  MyDropdownCheckboxRadioSwitchValidation({Key? key}) : super(key: key);
+
+  @override
+  State<MyDropdownCheckboxRadioSwitchValidation> createState() =>
+      _MyDropdownCheckboxRadioSwitchValidationState();
+}
+
+class _MyDropdownCheckboxRadioSwitchValidationState
+    extends State<MyDropdownCheckboxRadioSwitchValidation> {
+  var dropdownValue = 'One';
+  var dropdownValues = 1;
+  final dropdownList = <String>['One', 'Two', 'Three', 'Four'];
+  final dropdownLists = <int>[1, 2, 3, 4];
+  var isCheck = false;
+  var sex = 'male';
+  var isOn = false;
+  final _globeKey = GlobalKey<FormState>();
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('DropDown')),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            DropdownButton(
+              value: dropdownValues,
+              icon: const Icon(Icons.arrow_downward),
+              iconSize: 16,
+              iconEnabledColor: Colors.blue,
+              elevation: 0,
+              style: const TextStyle(color: Colors.deepPurple),
+              underline: Container(
+                height: 2,
+                color: Colors.deepPurpleAccent,
+              ),
+              items: dropdownLists.map((value) {
+                return DropdownMenuItem(
+                  value: value,
+                  child: Text(value.toString()),
+                );
+              }).toList(),
+              //  onChanged: (String? value) {
+              onChanged: (int? value) {
+                print(value);
+                setState(() {
+                  // (value != null) ? dropdownValue = value : null;
+                  dropdownValues = value!;
+                });
+              },
+            ),
+            SizedBox(height: 20),
+            Checkbox(
+                value: isCheck,
+                activeColor: Colors.orange,
+                onChanged: (val) {
+                  setState(() {
+                    isCheck = val!;
+                  });
+                }),
+            SizedBox(height: 20),
+            RadioListTile(
+                title: Text('male'),
+                subtitle: Text('Day la test tester'),
+                value: 'male',
+                groupValue: sex,
+                onChanged: (String? val) {
+                  setState(() {
+                    sex = val!;
+                  });
+                }),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Radio(
+                    value: 'female',
+                    groupValue: sex,
+                    onChanged: (String? val) {
+                      setState(() {
+                        sex = val!;
+                      });
+                    }),
+                Text('female')
+              ],
+            ),
+            SizedBox(height: 20),
+            Switch(
+                value: isOn,
+                onChanged: (bool? val) {
+                  setState(() {
+                    isOn = val!;
+                  });
+                }),
+            Form(
+              key: _globeKey,
+              child: TextFormField(
+                validator: ((value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Plase enter some text';
+                  }
+                  return null;
+                }),
+              ),
+            )
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          print('Test Validate');
+          _globeKey.currentState!.validate();
+        },
+        child: Icon(Icons.plus_one),
       ),
     );
   }
