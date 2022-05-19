@@ -5,9 +5,10 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hello_world/data/listData.dart';
+import 'package:intl/intl.dart';
 
 void main() {
-  runApp(MyTextField());
+  runApp(MyShowDateTimePicker());
 }
 
 // giới thiệu về Widget Container, Text
@@ -1615,6 +1616,114 @@ class MySecondPageTextField extends StatelessWidget {
         body: Center(
             child:
                 Text('Username: $userName \n\nPassword: $passWord \n\n$str')),
+      ),
+    );
+  }
+}
+
+// giới thiệu về Widget showDatePicker  TimePicker
+
+class MyShowDateTimePicker extends StatelessWidget {
+  const MyShowDateTimePicker({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: MyHomeShowDateTimePicker(),
+    );
+  }
+}
+
+class MyHomeShowDateTimePicker extends StatefulWidget {
+  MyHomeShowDateTimePicker({Key? key}) : super(key: key);
+
+  @override
+  State<MyHomeShowDateTimePicker> createState() =>
+      _MyHomeShowDateTimePickerState();
+}
+
+class _MyHomeShowDateTimePickerState extends State<MyHomeShowDateTimePicker> {
+  var dateTime;
+  var timeStamp;
+  var anotherDateTime;
+  var newDateTime;
+  var selectDate, selectTime;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    dateTime = DateTime.now();
+    timeStamp = dateTime.millisecondsSinceEpoch;
+    anotherDateTime = DateFormat('yyyy-mm-dd hh:mm:ss').format(dateTime);
+    newDateTime = DateTime.parse(anotherDateTime);
+    selectDate = DateTime.now();
+    selectTime = TimeOfDay.now();
+  }
+
+  _selectTime(BuildContext context) async {
+    final TimeOfDay? picked = await showTimePicker(
+        context: context,
+        initialTime: selectTime,
+        initialEntryMode: TimePickerEntryMode.dial,
+        confirmText: "Xác nhận",
+        cancelText: "Hủy",
+        helpText: "Chọn thời gian");
+    if (picked != null && picked != selectTime)
+      // ignore: curly_braces_in_flow_control_structures
+      setState(() {
+        selectTime = picked;
+      });
+  }
+
+  _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: selectDate,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2025),
+    );
+    if (picked != null && picked != selectDate)
+      // ignore: curly_braces_in_flow_control_structures
+      setState(() {
+        selectDate = picked;
+      });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Home'),
+      ),
+      body: SafeArea(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('$dateTime'),
+              Text('$timeStamp'),
+              Text('$anotherDateTime'),
+              Text('$newDateTime'),
+              SizedBox(height: 20),
+              Text('${DateFormat('dd-MM-yyyy').format(selectDate)}'),
+              Text('${selectTime.hour} hour : ${selectTime.minute} min'),
+              SizedBox(height: 40),
+              ElevatedButton(
+                  onPressed: () {
+                    print(
+                        "$dateTime dsa $timeStamp 321 $anotherDateTime \n dsadsa $newDateTime");
+                    _selectDate(context);
+                  },
+                  child: Text("Show Date Picker")),
+              SizedBox(height: 10),
+              ElevatedButton(
+                  onPressed: () {
+                    _selectTime(context);
+                  },
+                  child: Text("Show Time Picker")),
+            ],
+          ),
+        ),
       ),
     );
   }
