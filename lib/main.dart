@@ -8,7 +8,7 @@ import 'package:hello_world/data/listData.dart';
 import 'package:intl/intl.dart';
 
 void main() {
-  runApp(MyHomeDropdownCheckboxRadioSwitchValidation());
+  runApp(MyHomeDialogBottomsheet());
 }
 
 // giới thiệu về Widget Container, Text
@@ -1857,6 +1857,200 @@ class _MyDropdownCheckboxRadioSwitchValidationState
           _globeKey.currentState!.validate();
         },
         child: Icon(Icons.plus_one),
+      ),
+    );
+  }
+}
+
+// Giới thiệu về Widget Dialog & Bottom Sheet
+class MyHomeDialogBottomsheet extends StatelessWidget {
+  const MyHomeDialogBottomsheet({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: MyDialogBottomsheet(),
+    );
+  }
+}
+
+class MyDialogBottomsheet extends StatefulWidget {
+  MyDialogBottomsheet({Key? key}) : super(key: key);
+
+  @override
+  State<MyDialogBottomsheet> createState() => _MyDialogBottomsheetState();
+}
+
+class _MyDialogBottomsheetState extends State<MyDialogBottomsheet> {
+  _showBottomSheet() {
+    showModalBottomSheet(
+        context: context,
+        builder: (context) => Container(
+              child: Text('Bottom Sheet'),
+            ));
+  }
+
+  _showEntireDialog() {
+    showGeneralDialog(
+      context: context,
+      pageBuilder: (BuildContext buildContext, Animation<double> animation,
+          Animation<double> secondaryAnimation) {
+        return Wrap(
+          children: <Widget>[
+            Container(
+              width: 200.0,
+              height: 200.0,
+              color: Colors.orange,
+            ),
+          ],
+        );
+      },
+      barrierDismissible: true,
+      barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+      barrierColor: Colors.black,
+      transitionDuration: const Duration(milliseconds: 200),
+    );
+  }
+
+  _showOwnDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => Dialog(
+        elevation: 0,
+        backgroundColor: Colors.transparent, // bóng mờ backgroundColor
+        child: Container(
+          height: double.infinity,
+          width: double.infinity,
+          // color: Colors.green[300],
+          child: Stack(children: [
+            Positioned(
+              bottom: 0,
+              right: 0,
+              child: Container(
+                width: 200,
+                height: 200,
+                color: Colors.yellow,
+              ),
+            ),
+            Positioned(
+              top: 10,
+              left: 10,
+              child: Container(
+                width: 100,
+                height: 100,
+                decoration:
+                    BoxDecoration(color: Colors.blue, shape: BoxShape.circle),
+              ),
+            ),
+          ]),
+        ),
+      ),
+    );
+  }
+
+  _showSimpleDialog() {
+    showDialog(
+        context: context,
+        builder: (context) => SimpleDialog(
+              title: Text('Simple Dialog'),
+              children: [
+                SimpleDialogOption(
+                  onPressed: () {
+                    print("simple option 1");
+                  },
+                  child: Text('Simple Option 1'),
+                ),
+                SimpleDialogOption(
+                  onPressed: () {
+                    print("simple option 2");
+                  },
+                  child: Text('Simple Option 2'),
+                ),
+                SimpleDialogOption(
+                  onPressed: () {
+                    print("simple option 3");
+                  },
+                  child: Text('Simple Option 3'),
+                ),
+              ],
+            ));
+  }
+
+  _showMyDialog() {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) => AlertDialog(
+              backgroundColor: Colors.amber[300],
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20)),
+              title: Text('Show AlertDialog'),
+              content: Text('Description of Dialog'),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      print('cancel');
+                    },
+                    child: Text('Cancel')),
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      print('Confirm');
+                    },
+                    child: Text('Confirm'))
+              ],
+            ));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Dialog / Bottom')),
+      body: SafeArea(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                child: Text('showDialog'),
+                onPressed: () {
+                  _showMyDialog();
+                },
+              ),
+              SizedBox(height: 10),
+              ElevatedButton(
+                child: Text('show Simple Dialog'),
+                onPressed: () {
+                  _showSimpleDialog();
+                },
+              ),
+              SizedBox(height: 10),
+              ElevatedButton(
+                child: Text('show Own Dialog'),
+                onPressed: () {
+                  _showOwnDialog();
+                },
+              ),
+              SizedBox(height: 10),
+              ElevatedButton(
+                child: Text('show General Dialog'),
+                onPressed: () {
+                  _showEntireDialog;
+                  print('3232');
+                },
+              ),
+              SizedBox(height: 10),
+              ElevatedButton(
+                child: Text('show Bottom Sheet Dialog'),
+                onPressed: () {
+                  _showBottomSheet();
+                  print('3232');
+                },
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
