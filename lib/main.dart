@@ -1493,6 +1493,8 @@ class _MyTextFieldStatefulState extends State<MyTextFieldStateful> {
   late final TextEditingController _textEditingController;
   late final TextEditingController _text2EditingController;
   var str = '';
+  FocusNode str1 = FocusNode();
+  FocusNode str2 = FocusNode();
   @override
   void initState() {
     // TODO: implement initState
@@ -1513,18 +1515,6 @@ class _MyTextFieldStatefulState extends State<MyTextFieldStateful> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('MyTextField')),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => MySecondPageTextField(
-                  _textEditingController.text,
-                  _text2EditingController.text,
-                  str),
-            ),
-          );
-        },
-      ),
       body: SafeArea(
         child: Container(
           child: Center(
@@ -1562,13 +1552,51 @@ class _MyTextFieldStatefulState extends State<MyTextFieldStateful> {
                     onChanged: (value) => {
                       str = value,
                     },
+                    focusNode: str1,
+                    // autofocus: true, //khi mở đến screen này sẽ tập trung vào textFeild có autofocus true
                     style: TextStyle(fontSize: 14),
+                  ),
+                  SizedBox(height: 10),
+                  TextField(
+                    // decoration: InputDecoration.collapsed(hintText: "String 2"),
+                    decoration: InputDecoration(
+                        hintText: 'String 2',
+                        labelText: 'String 2',
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(30)),
+                        prefixIcon: Icon(Icons.ac_unit)),
+                    focusNode: str2,
+                    // keyboardType: TextInputType.text,
+                    // autocorrect: true, // tính năng tự sửa default true
+                    // autofocus: true, //khi mở đến screen này sẽ tập trung vào textFeild có autofocus true
+                    // textCapitalization: TextCapitalization.characters, // thực thi in hoa chữ auto
+                    // textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 14, color: Colors.orange),
+                    maxLines: 4,
+                    // maxLength: 20,
+                    obscureText: false, // hide text password
                   ),
                 ],
               ),
             ),
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.skip_next),
+        onPressed: () {
+          FocusScope.of(context).requestFocus(
+              str2); // thực thi tương tựu autofocus trỏ đến requestFocus(str2)
+
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => MySecondPageTextField(
+                  _textEditingController.text,
+                  _text2EditingController.text,
+                  str),
+            ),
+          );
+        },
       ),
     );
   }
