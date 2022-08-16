@@ -22,22 +22,34 @@ class MyAppProvider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home:
-          // StatefulExample(),
+    // return MaterialApp(
+    //   home:
+    // StatefulExample(),
 
-          // StatefulParent(),
+    // StatefulParent(),
 
-          InheritedExample(),
+    // InheritedExample(),
 
-      //       Provider(
-      // create: (_) => Counter(),
-      // child: const ProviderExample(),
-      // )
+    //     Provider<Counter>(
+    //   //Tiện ích provider này không cập nhập UI
+    //   create: (_) => Counter(),
+    //   child: const ProviderExample(),
+    // ),
 
-      // ChangeNotifierProvider<CounterNotifier>(
-      //     create: (_) => CounterNotifier(),
-      //     child: const ChangeNotifierProviderExample()),
+    // ChangeNotifierProvider<CounterNotifier>(
+    //     // Tiện ích provider này có cập nhập UI
+    //     create: (_) => CounterNotifier(),
+    //     child: const ChangeNotifierProviderExample()),
+
+    // );
+
+    return ChangeNotifierProvider(
+      // Cách để các widget page child có thể truy cập vào CounterNotifier(), bọc ngoài <Provider>
+      // Cách sử dụng chung 1 model ChangeNotifier
+      create: (_) => CounterNotifier(),
+      child: const MaterialApp(
+        home: ChangeNotifierProviderExample(),
+      ),
     );
   }
 }
