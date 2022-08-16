@@ -5,7 +5,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hello_world/data/listData.dart';
-import 'package:hello_world/src/learn/povider/main.dart';
+import 'package:hello_world/src/learn/provider/main.dart';
 import 'package:intl/intl.dart';
 
 void main() {
