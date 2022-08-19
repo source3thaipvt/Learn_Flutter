@@ -13,6 +13,9 @@ import 'package:hello_world/src/learn/provider/provider_widget/counter.dart';
 import 'package:hello_world/src/learn/provider/provider_widget/provider_example.dart';
 import 'package:hello_world/src/learn/provider/stateful_example_widget/stateful_example.dart';
 import 'package:hello_world/src/learn/provider/stateful_parent_widget/stateful_parent.dart';
+import 'package:hello_world/src/learn/provider/stream_provider/data.dart';
+import 'package:hello_world/src/learn/provider/stream_provider/data_stream.dart';
+import 'package:hello_world/src/learn/provider/stream_provider/stream_provider.dart';
 import 'package:provider/provider.dart';
 
 import 'future_provider/data.dart';
@@ -57,13 +60,23 @@ class MyAppProvider extends StatelessWidget {
     // );
 
     // Phương thức thay đổi state trong tương lai
-    return FutureProvider<Data>(
-        //Phương pháp này không thay đổi UI khi click vào load Data, nếu muốn thay đổi UI dùng ChangeNotifierProvider
+    // return FutureProvider<Data>(
+    //     //Phương pháp này không thay đổi UI khi click vào load Data, nếu muốn thay đổi UI dùng ChangeNotifierProvider
+    //     create: (_) =>
+    //         loadData(), //once only, chạy loadData chỉ đúng 1 lần, đồng thời thay đổi UI
+    //     initialData: Data("Initial data"),
+    //     child: const MaterialApp(
+    //       home: FutureProviderExample(),
+    //     ));
+
+    // Phương thức thay đổi state trong tương lai
+    return StreamProvider<ModelStream>(
+        //Phương pháp này không thay đổi UI khi click vào Increase, nếu muốn thay đổi UI dùng ChangeNotifierProvider
         create: (_) =>
-            loadData(), //once only, chạy loadData chỉ đúng 1 lần, đồng thời thay đổi UI
-        initialData: Data("Initial data"),
+            loadStream(), //once only, chạy loadData chỉ đúng 1 lần, đồng thời thay đổi UI
+        initialData: ModelStream(number: 0),
         child: const MaterialApp(
-          home: FutureProviderExample(),
+          home: StreamProviderExample(),
         ));
 
     // Lỗi
