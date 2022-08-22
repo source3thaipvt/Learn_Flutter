@@ -12,6 +12,9 @@ import 'package:hello_world/src/learn/provider/inherited_widget/inherited_exampl
 import 'package:hello_world/src/learn/provider/multi_provider/multi_provider_example.dart';
 import 'package:hello_world/src/learn/provider/provider_widget/counter.dart';
 import 'package:hello_world/src/learn/provider/provider_widget/provider_example.dart';
+import 'package:hello_world/src/learn/provider/proxy_provider/credit_card.dart';
+import 'package:hello_world/src/learn/provider/proxy_provider/customer.dart';
+import 'package:hello_world/src/learn/provider/proxy_provider/proxy_provider_example.dart';
 import 'package:hello_world/src/learn/provider/stateful_example_widget/stateful_example.dart';
 import 'package:hello_world/src/learn/provider/stateful_parent_widget/stateful_parent.dart';
 import 'package:hello_world/src/learn/provider/stream_provider/data.dart';
@@ -101,25 +104,41 @@ class MyAppProvider extends StatelessWidget {
 
     // Cách 2 Multiple Provider dùng tool
 
+    // return MultiProvider(
+    //   providers: [
+    //     ChangeNotifierProvider<CounterNotifier>(
+    //       create: (_) => CounterNotifier(),
+    //     ),
+    //     FutureProvider<Data>(
+    //       initialData: Data("Initial data"),
+    //       create: (_) => loadData(),
+    //     ),
+    //     StreamProvider<ModelStream>(
+    //       initialData: ModelStream(number: 0),
+    //       create: (_) => loadStream(),
+    //     ),
+    //   ],
+    //   child: const MaterialApp(
+    //     // home: ChangeNotifierProviderExample(),
+    //     // home: FutureProviderExample(),
+    //     // home: StreamProviderExample(),
+    //     home: MultiProviderExample(),
+    //   ),
+    // );
+
+    // Proxy Provider không cập nhập thay đổi ui
+
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<CounterNotifier>(
-          create: (_) => CounterNotifier(),
+        ChangeNotifierProvider<CreditCard>(
+          create: (_) => CreditCard(),
         ),
-        FutureProvider<Data>(
-          initialData: Data("Initial data"),
-          create: (_) => loadData(),
-        ),
-        StreamProvider<ModelStream>(
-          initialData: ModelStream(number: 0),
-          create: (_) => loadStream(),
+        ProxyProvider<CreditCard, Customer>(
+          update: (_, creditCard, customer) => Customer(creditCard: creditCard),
         ),
       ],
       child: const MaterialApp(
-        // home: ChangeNotifierProviderExample(),
-        // home: FutureProviderExample(),
-        // home: StreamProviderExample(),
-        home: MultiProviderExample(),
+        home: ProxyProviderExample(),
       ),
     );
   }
