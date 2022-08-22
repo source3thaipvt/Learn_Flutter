@@ -9,6 +9,7 @@ import 'package:hello_world/src/learn/provider/change_notifier_provider/counter_
 import 'package:hello_world/src/learn/provider/future_provider/data_future.dart';
 import 'package:hello_world/src/learn/provider/future_provider/future_provider.dart';
 import 'package:hello_world/src/learn/provider/inherited_widget/inherited_example.dart';
+import 'package:hello_world/src/learn/provider/multi_provider/multi_provider_example.dart';
 import 'package:hello_world/src/learn/provider/provider_widget/counter.dart';
 import 'package:hello_world/src/learn/provider/provider_widget/provider_example.dart';
 import 'package:hello_world/src/learn/provider/stateful_example_widget/stateful_example.dart';
@@ -69,40 +70,57 @@ class MyAppProvider extends StatelessWidget {
     //       home: FutureProviderExample(),
     //     ));
 
-    // Phương thức thay đổi state trong tương lai
-    return StreamProvider<ModelStream>(
-        //Phương pháp này không thay đổi UI khi click vào Increase, nếu muốn thay đổi UI dùng ChangeNotifierProvider
-        create: (_) =>
-            loadStream(), //once only, chạy loadData chỉ đúng 1 lần, đồng thời thay đổi UI
-        initialData: ModelStream(number: 0),
-        child: const MaterialApp(
-          home: StreamProviderExample(),
-        ));
-
-    // Lỗi
-    // return MultiProvider(
-    //     providers: [
-    //       ChangeNotifierProvider(create: (_) => CounterNotifier()),
-    //     ],
-    //     // child: const MaterialApp(
-    //     //   home: ChangeNotifierProviderExample(),
-    //     // ),
-    //     child: Center(
-    //       child: Column(
-    //         mainAxisAlignment: MainAxisAlignment.center,
-    //         children: [
-    //           ElevatedButton(
-    //               onPressed: () {
-    //                 Navigator.of(context).push(
-    //                   MaterialPageRoute(
-    //                     builder: ((context) =>
-    //                         const ChangeNotifierProviderExample()),
-    //                   ),
-    //                 );
-    //               },
-    //               child: Text('Provider Basic'))
-    //         ],
-    //       ),
+    // // Phương thức thay đổi state trong tương lai
+    // return StreamProvider<ModelStream>(
+    //     //Phương pháp này không thay đổi UI khi click vào Increase, nếu muốn thay đổi UI dùng ChangeNotifierProvider
+    //     create: (_) =>
+    //         loadStream(), //once only, chạy loadData chỉ đúng 1 lần, đồng thời thay đổi UI
+    //     initialData: ModelStream(number: 0),
+    //     child: const MaterialApp(
+    //       home: StreamProviderExample(),
     //     ));
+
+    // Cách 1 Multiple Provider lồng
+
+    // return ChangeNotifierProvider<CounterNotifier>(
+    //   create: (_) => CounterNotifier(),
+    //   child: FutureProvider<Data>(
+    //     create: (_) => loadData(),
+    //     initialData: Data("Initial data"),
+    //     child: StreamProvider<ModelStream>(
+    //         create: (_) =>
+    //             loadStream(), //once only, chạy loadData chỉ đúng 1 lần, đồng thời thay đổi UI
+    //         initialData: ModelStream(number: 0),
+    //         child: const MaterialApp(
+    //           // home: ChangeNotifierProviderExample(),
+    //           // home: FutureProviderExample(),
+    //           home: StreamProviderExample(),
+    //         )),
+    //   ),
+    // );
+
+    // Cách 2 Multiple Provider dùng tool
+
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<CounterNotifier>(
+          create: (_) => CounterNotifier(),
+        ),
+        FutureProvider<Data>(
+          initialData: Data("Initial data"),
+          create: (_) => loadData(),
+        ),
+        StreamProvider<ModelStream>(
+          initialData: ModelStream(number: 0),
+          create: (_) => loadStream(),
+        ),
+      ],
+      child: const MaterialApp(
+        // home: ChangeNotifierProviderExample(),
+        // home: FutureProviderExample(),
+        // home: StreamProviderExample(),
+        home: MultiProviderExample(),
+      ),
+    );
   }
 }
