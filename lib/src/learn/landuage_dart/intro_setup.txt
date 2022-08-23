@@ -1,0 +1,3 @@
+--> Trang chủ https://dart.dev
+--> Dart là ngôn ngữ định hướng đối tượng như Java(70~80%) và C+ dành cho Flutter để xây dựng các ứng dụng Mobile, Web và Desktop app
+--> Cài đặt Dart SDK or upgrade Dart SDK: cmd$dart --version
